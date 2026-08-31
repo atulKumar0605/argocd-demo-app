@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: atul0605/argocd-demo-app
-  tag: "1296fb1728bf3fe1c6486d1b6690719e44b47677"
+  tag: "0b8434b06dfb2022c4efc37d2537676ec94b2736"
   pullPolicy: IfNotPresent
 
 service:
