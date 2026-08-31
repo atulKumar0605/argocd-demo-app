@@ -1,6 +1,5 @@
 name: Build and Deploy
 
-
 permissions:
   contents: write
 
@@ -10,6 +9,7 @@ on:
       - main
     paths-ignore:
       - 'k8s/**'
+      - 'encyclo-chart/**'
 
 jobs:
   build-and-push:
@@ -30,14 +30,17 @@ jobs:
           docker build -t $IMAGE_TAG .
           docker push $IMAGE_TAG
 
-      - name: Update deployment manifest
+      - name: Update deployment manifests
         run: |
-          sed -i "s|image: .*argocd-demo-app:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/argocd-demo-app:${{ github.sha }}|" k8s/deployment.yaml
+          IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/argocd-demo-app:${{ github.sha }}
+          sed -i "s|image: .*argocd-demo-app:.*|image: ${IMAGE_TAG}|" k8s/deployment.yaml
+          sed -i "s|repository:.*|repository: ${{ secrets.DOCKERHUB_USERNAME }}/argocd-demo-app|" encyclo-chart/values.yaml
+          sed -i "s|tag:.*|tag: \"${{ github.sha }}\"|" encyclo-chart/values.yaml
 
-      - name: Commit and push updated manifest
+      - name: Commit and push updated manifests
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add k8s/deployment.yaml
+          git add k8s/deployment.yaml encyclo-chart/values.yaml
           git commit -m "Update image tag to ${{ github.sha }}" || echo "No changes to commit"
           git push
