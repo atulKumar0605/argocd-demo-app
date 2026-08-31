@@ -14,6 +14,11 @@ h1{font-size:clamp(2.6rem,7vw,5.7rem);line-height:.95;margin:14px 0;background:l
 .toolbar{position:sticky;top:0;z-index:20;background:rgba(7,9,15,.78);backdrop-filter:blur(18px);border-block:1px solid var(--line);padding:14px 0}
 .controls{display:flex;gap:10px;flex-wrap:wrap}.search,.select,.btn{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px 14px;font:inherit;outline:none}.search{flex:1;min-width:220px}.select{min-width:150px}.btn{cursor:pointer}.btn:hover,.card:hover{border-color:#4b3fa0}.stats{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}.stat{padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;color:var(--muted)}.stat b{color:var(--text);font-size:1.15rem}
 .timeline{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:24px 0 70px}.card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden}.card:before{content:"";position:absolute;inset:-80px auto auto -80px;width:160px;height:160px;background:radial-gradient(circle,#7c5cff33,transparent 65%);pointer-events:none}
+.photo{height:220px;margin:-20px -20px 16px;border-radius:24px 24px 0 0;background:linear-gradient(145deg,#0b0e15,#1a2030);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;border-bottom:1px solid var(--line)}
+.photo img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .35s ease;filter:drop-shadow(0 20px 25px rgba(0,0,0,.35))}
+.card:hover .photo img{transform:scale(1.045)}
+.photo .fallback{font-size:4rem;font-weight:900;letter-spacing:-.08em;color:#ffffff18}
+.photo .loading{font-size:.78rem;color:#7f8998;position:absolute;bottom:10px}
 .top{display:flex;justify-content:space-between;gap:12px;align-items:start}.year{font-size:.8rem;color:#aeb7c5;background:#ffffff0a;border:1px solid var(--line);padding:5px 9px;border-radius:999px}.name{font-size:1.35rem;font-weight:850;margin:0 0 4px}.note{color:var(--muted);font-size:.88rem;line-height:1.45;min-height:42px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}.chip{font-size:.74rem;padding:6px 9px;border-radius:999px;background:#7c5cff16;border:1px solid #7c5cff35;color:#d7d1ff}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.spec{padding:10px;border-radius:13px;background:#090c13;border:1px solid #1b212d}.spec span{display:block;color:#7f8998;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.spec strong{font-size:.82rem;line-height:1.35}
 .detail{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}.card.open .detail{display:block}.fullrow{margin:8px 0;color:#c6cdd8;font-size:.82rem;line-height:1.5}.fullrow b{color:#fff}.more{margin-top:12px;width:100%}
@@ -54,7 +59,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:#778191;font-s
 <footer>
 <div class="wrap">
 <strong>Data note:</strong> Modern lineup/specs are cross-checked against Apple's iPhone Compare pages. For older discontinued models, the page presents commonly documented launch specifications. Battery figures are Apple-rated video/talk-time figures where available, not a single physical battery-capacity number.<br>
-This is a self-contained educational/demo page. It does not include Apple's copyrighted product photography.
+Product photos are loaded dynamically from Wikipedia's public page thumbnails when the browser is online. Photo availability can vary by model; the page falls back gracefully if a thumbnail is unavailable.
 Modern reference: <a href="https://www.apple.com/iphone/compare/" target="_blank" rel="noopener">Apple iPhone Compare</a>.
 </div>
 </footer>
@@ -102,6 +107,7 @@ function render(){
  count.textContent=filtered.length;
  timeline.innerHTML=filtered.length?filtered.map((m,i)=>`
  <article class="card" data-i="${models.indexOf(m)}">
+   <div class="photo" data-model="${esc(m.name)}"><div class="fallback"></div><div class="loading">Loading product photo…</div></div>
    <div class="top"><div><h2 class="name">${esc(m.name)}</h2><div class="note">${esc(m.note)}</div></div><span class="year">${m.year}</span></div>
    <div class="chips"><span class="chip">${esc(m.chip)}</span><span class="chip">${esc(m.display)}</span><span class="chip">${esc(m.network)}</span></div>
    <div class="grid">
@@ -121,6 +127,27 @@ function render(){
    <button class="btn more" onclick="toggleCard(this)">Show all key specs</button>
    <button class="btn more" onclick="openModal(${models.indexOf(m)})">Open full comparison</button>
  </article>`).join(''):`<div class="empty">No model matched your search. Try “A17”, “Pro”, “2019”, “USB-C” or “mini”.</div>`;
+ loadPhotos();
+}
+async function loadPhotos(){
+ const boxes=[...document.querySelectorAll('.photo[data-model]')];
+ await Promise.all(boxes.map(async box=>{
+   const model=box.dataset.model;
+   const candidates=[model, model.replace(' (1st gen)',''), model.replace(' (2nd gen)',''), model.replace(' (3rd gen)','')];
+   let found=null;
+   for(const title of [...new Set(candidates)]){
+     try{
+       const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title));
+       if(!r.ok) continue;
+       const d=await r.json();
+       if(d.thumbnail?.source){found=d.thumbnail.source;break;}
+     }catch(e){}
+   }
+   if(found){
+     const img=new Image(); img.loading='lazy'; img.alt=model+' product photo'; img.src=found;
+     img.onload=()=>{box.innerHTML='';box.appendChild(img)};
+   }else{const loading=box.querySelector('.loading');if(loading) loading.textContent='Photo unavailable';}
+ }));
 }
 function toggleCard(btn){
  const card=btn.closest('.card'); card.classList.toggle('open');
