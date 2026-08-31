@@ -3,24 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>iPhone Encyclopedia — Every Generation</title>
+<title>iPhone Encyclopedia — Light Edition</title>
 <style>
-:root{--bg:#07090f;--panel:#10131c;--panel2:#151a25;--text:#f5f7fb;--muted:#9aa4b2;--line:#242b38;--accent:#7c5cff;--accent2:#00d4ff;--good:#38d39f;--shadow:0 20px 60px rgba(0,0,0,.35)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% -10%,#241a55 0,transparent 35%),radial-gradient(circle at 90% 0,#063b4c 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+:root{--bg:#f5f7fb;--panel:#ffffff;--panel2:#f0f3f8;--text:#111318;--muted:#687386;--line:#dfe4ec;--accent:#635bff;--accent2:#0aa7d8;--good:#16a673;--shadow:0 14px 40px rgba(20,35,60,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% -10%,#e8e5ff 0,transparent 35%),radial-gradient(circle at 90% 0,#dff7ff 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 a{color:inherit}.wrap{width:min(1180px,92%);margin:auto}
 header{padding:64px 0 28px}.eyebrow{color:#b7adff;text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;font-weight:800}
 h1{font-size:clamp(2.6rem,7vw,5.7rem);line-height:.95;margin:14px 0;background:linear-gradient(110deg,#fff,#bdb6ff 45%,#69e7ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{max-width:760px;color:var(--muted);font-size:1.05rem;line-height:1.7}
-.toolbar{position:sticky;top:0;z-index:20;background:rgba(7,9,15,.78);backdrop-filter:blur(18px);border-block:1px solid var(--line);padding:14px 0}
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);border-block:1px solid var(--line);padding:14px 0}
 .controls{display:flex;gap:10px;flex-wrap:wrap}.search,.select,.btn{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px 14px;font:inherit;outline:none}.search{flex:1;min-width:220px}.select{min-width:150px}.btn{cursor:pointer}.btn:hover,.card:hover{border-color:#4b3fa0}.stats{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}.stat{padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;color:var(--muted)}.stat b{color:var(--text);font-size:1.15rem}
-.timeline{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:24px 0 70px}.card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden}.card:before{content:"";position:absolute;inset:-80px auto auto -80px;width:160px;height:160px;background:radial-gradient(circle,#7c5cff33,transparent 65%);pointer-events:none}
-.top{display:flex;justify-content:space-between;gap:12px;align-items:start}.year{font-size:.8rem;color:#aeb7c5;background:#ffffff0a;border:1px solid var(--line);padding:5px 9px;border-radius:999px}.name{font-size:1.35rem;font-weight:850;margin:0 0 4px}.note{color:var(--muted);font-size:.88rem;line-height:1.45;min-height:42px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}.chip{font-size:.74rem;padding:6px 9px;border-radius:999px;background:#7c5cff16;border:1px solid #7c5cff35;color:#d7d1ff}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.spec{padding:10px;border-radius:13px;background:#090c13;border:1px solid #1b212d}.spec span{display:block;color:#7f8998;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.spec strong{font-size:.82rem;line-height:1.35}
+.timeline{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:24px 0 70px}.card{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,253,.98));border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden}.card:before{content:"";position:absolute;inset:-80px auto auto -80px;width:160px;height:160px;background:radial-gradient(circle,#7c5cff33,transparent 65%);pointer-events:none}
+.photo{height:220px;margin:-20px -20px 16px;border-radius:24px 24px 0 0;background:linear-gradient(145deg,#0b0e15,#1a2030);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;border-bottom:1px solid var(--line)}
+.photo img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .35s ease;filter:drop-shadow(0 20px 25px rgba(0,0,0,.35))}
+.card:hover .photo img{transform:scale(1.045)}
+.photo .fallback{font-size:4rem;font-weight:900;letter-spacing:-.08em;color:#ffffff18}
+.photo .loading{font-size:.78rem;color:#748094;position:absolute;bottom:10px}.photo-credit{position:absolute;right:9px;bottom:8px;font-size:.58rem;color:#6e7888;background:#0008;padding:3px 6px;border-radius:6px}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:start}.year{font-size:.8rem;color:#aeb7c5;background:#f1f4f8;border:1px solid var(--line);padding:5px 9px;border-radius:999px}.name{font-size:1.35rem;font-weight:850;margin:0 0 4px}.note{color:var(--muted);font-size:.88rem;line-height:1.45;min-height:42px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}.chip{font-size:.74rem;padding:6px 9px;border-radius:999px;background:#eeecff;border:1px solid #d8d3ff;color:#5048b8}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.spec{padding:10px;border-radius:13px;background:#f5f7fa;border:1px solid #e2e7ef}.spec span{display:block;color:#748094;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.spec strong{font-size:.82rem;line-height:1.35}
 .detail{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}.card.open .detail{display:block}.fullrow{margin:8px 0;color:#c6cdd8;font-size:.82rem;line-height:1.5}.fullrow b{color:#fff}.more{margin-top:12px;width:100%}
 .empty{grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)}
-footer{border-top:1px solid var(--line);padding:28px 0 50px;color:#778191;font-size:.8rem;line-height:1.7}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modal.show{display:flex}.modalbox{width:min(760px,100%);max-height:90vh;overflow:auto;background:#0d1119;border:1px solid #343d4d;border-radius:26px;padding:24px;box-shadow:0 30px 100px #000}.close{float:right}.compare{width:100%;border-collapse:collapse;margin-top:16px}.compare th,.compare td{text-align:left;padding:11px;border-bottom:1px solid var(--line);vertical-align:top}.compare th{color:#8f9aaa;width:35%}
+footer{border-top:1px solid var(--line);padding:28px 0 50px;color:#697586;font-size:.8rem;line-height:1.7}
+.modal{position:fixed;inset:0;background:rgba(20,25,35,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modal.show{display:flex}.modalbox{width:min(760px,100%);max-height:90vh;overflow:auto;background:#ffffff;border:1px solid #dce2eb;border-radius:26px;padding:24px;box-shadow:0 30px 100px #000}.close{float:right}.compare{width:100%;border-collapse:collapse;margin-top:16px}.compare th,.compare td{text-align:left;padding:11px;border-bottom:1px solid var(--line);vertical-align:top}.compare th{color:#8f9aaa;width:35%}
 @media(max-width:600px){header{padding-top:42px}.timeline{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.toolbar{position:static}}
+
+/* Light theme refinements */
+.card{box-shadow:0 10px 30px rgba(20,35,60,.08)}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(20,35,60,.13)}
+.btn:hover{background:#f4f6fa}
+.search:focus,.select:focus{border-color:#9b94ff;box-shadow:0 0 0 3px rgba(99,91,255,.12)}
 </style>
 </head>
 <body>
@@ -54,7 +65,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 50px;color:#778191;font-s
 <footer>
 <div class="wrap">
 <strong>Data note:</strong> Modern lineup/specs are cross-checked against Apple's iPhone Compare pages. For older discontinued models, the page presents commonly documented launch specifications. Battery figures are Apple-rated video/talk-time figures where available, not a single physical battery-capacity number.<br>
-This is a self-contained educational/demo page. It does not include Apple's copyrighted product photography.
+Product photos are loaded from GSMArena's image CDN when the browser has internet access. Images are lazy-loaded so the page does not request all 52 photos at once.
 Modern reference: <a href="https://www.apple.com/iphone/compare/" target="_blank" rel="noopener">Apple iPhone Compare</a>.
 </div>
 </footer>
@@ -102,6 +113,7 @@ function render(){
  count.textContent=filtered.length;
  timeline.innerHTML=filtered.length?filtered.map((m,i)=>`
  <article class="card" data-i="${models.indexOf(m)}">
+   <div class="photo" data-model="${esc(m.name)}"><div class="fallback"></div><div class="loading">Loading product photo…</div></div>
    <div class="top"><div><h2 class="name">${esc(m.name)}</h2><div class="note">${esc(m.note)}</div></div><span class="year">${m.year}</span></div>
    <div class="chips"><span class="chip">${esc(m.chip)}</span><span class="chip">${esc(m.display)}</span><span class="chip">${esc(m.network)}</span></div>
    <div class="grid">
@@ -121,6 +133,49 @@ function render(){
    <button class="btn more" onclick="toggleCard(this)">Show all key specs</button>
    <button class="btn more" onclick="openModal(${models.indexOf(m)})">Open full comparison</button>
  </article>`).join(''):`<div class="empty">No model matched your search. Try “A17”, “Pro”, “2019”, “USB-C” or “mini”.</div>`;
+ loadPhotos();
+}
+function photoSlug(name){
+ const n=name.toLowerCase();
+ const map={
+  'iphone (1st gen)':'iphone',
+  'iphone se (1st gen)':'iphone-se',
+  'iphone se (2nd gen)':'iphone-se-2020',
+  'iphone se (3rd gen)':'iphone-se-2022',
+  'iphone air':'iphone-air'
+ };
+ if(map[n]) return map[n];
+ return n.replace(/^iphone\s*/,'iphone-').replace(/\s*\([^)]*\)/g,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').replace(/-+/g,'-');
+}
+function photoUrl(name,variant=1){
+ return 'https://fdn2.gsmarena.com/vv/pics/apple/apple-'+photoSlug(name)+'-'+variant+'.jpg';
+}
+function loadOnePhoto(box){
+ const model=box.dataset.model;
+ let variant=1;
+ const tryPhoto=()=>{
+  const url=photoUrl(model,variant);
+  const img=new Image();
+  img.alt=model+' product photo';
+  img.referrerPolicy='no-referrer';
+  img.decoding='async';
+  img.onload=()=>{box.innerHTML='';box.appendChild(img);const c=document.createElement('span');c.className='photo-credit';c.textContent='Photo: GSMArena';box.appendChild(c)};
+  img.onerror=()=>{
+   if(variant<4){variant++;tryPhoto();}
+   else{const loading=box.querySelector('.loading');if(loading)loading.textContent='Photo unavailable';}
+  };
+  img.src=url;
+ };
+ tryPhoto();
+}
+function loadPhotos(){
+ const boxes=[...document.querySelectorAll('.photo[data-model]')];
+ if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+   if(e.isIntersecting){loadOnePhoto(e.target);io.unobserve(e.target)}
+  }),{rootMargin:'700px'});
+  boxes.forEach(b=>io.observe(b));
+ }else boxes.forEach(loadOnePhoto);
 }
 function toggleCard(btn){
  const card=btn.closest('.card'); card.classList.toggle('open');
@@ -141,4 +196,3 @@ render();
 </script>
 </body>
 </html>
-<p>Helm sync test</p>
