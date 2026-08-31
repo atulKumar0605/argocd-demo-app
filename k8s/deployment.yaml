@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: argocd-demo-app
-        image: atul0605/argocd-demo-app:e9067e9a4cd10e50da763331c51181f813077825
+        image: atul0605/argocd-demo-app:544a6e8e7dcf65053f771b706d889b4e1763dcd8
         ports:
         - containerPort: 80
