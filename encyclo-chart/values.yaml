@@ -1,0 +1,11 @@
+replicaCount: 2
+
+image:
+  repository: atul0605/argocd-demo-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
